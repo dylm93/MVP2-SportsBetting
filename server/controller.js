@@ -1,6 +1,10 @@
 const db = require ('../database/models');
+const pg = require ('pg');
 const express = require ('express');
 const request = require ('request');
+var session = require('express-session');
+var bcrypt = require('bcrypt-nodejs');
+
 
 const controller = {
     get: (req, res) => {
@@ -50,7 +54,44 @@ const controller = {
         
         }
       })
+    },
+    loginPost: (req, res) => {
+        
+        var username = req.body.username;
+        var password = req.body.password;
+
+        var template = {username: username, password: password, balance: 500}
+
+        // bcrypt.hash(password, null, null, function (err, hash) {
+        //     if (err) {
+        //       console.log('password not strong enough' + err)
+        //     } else {
+        //       console.log('hashed password')
+        db.Users.create(template)
+            .then (function (newUser) {
+                req.session.username = username;
+                res.redirect('/bets')   
+
+            })
+    },
+    getBalance: (req, res) => {
+        db.Users.findOne({where: {username: req.session.username}})
+        .then(data=>res.send(data))
+
+    },
+    placeBet: (req, res) => {
+        console.log(req.body)
+        db.Users.findOne({where: {username: req.session.username}})
+        .then(user=> {
+            user.update({
+                balance: req.body.money
+            })
+        }
+        )
     }
+            
+        
+
     }
 
 module.exports = controller;

@@ -6,6 +6,10 @@ router.route('/bets')
     .post(controller.post)
 router.route('/api')
     .get(controller.getOdds)
-
+router.route('/signup')
+    .post(controller.loginPost)
+    .get(controller.getBalance)
+router.route('/placedbet')
+    .put(controller.placeBet)
 
 module.exports = router;

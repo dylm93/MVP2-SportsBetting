@@ -16,8 +16,8 @@ const Bets = postgres.define(
 const Users = postgres.define(
     'users', 
 {   id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    username: {type: Sequelize.INTEGER},
-    password: {type: Sequelize.INTEGER},
+    username: {type: Sequelize.STRING},
+    password: {type: Sequelize.STRING},
     balance: {type: Sequelize.INTEGER}
 }
 )
@@ -32,5 +32,4 @@ Bets.sync()
     .catch(err => console.error(err));
 
 
-module.exports = { Users };
-module.exports = { Bets };
+module.exports = { Users, Bets };

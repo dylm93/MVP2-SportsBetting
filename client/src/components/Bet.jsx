@@ -9,13 +9,14 @@ class Bet extends React.Component {
         bet: '',
         possibleBet: '',
         openBets: [],
-        money: 500,
-        open: false
+        money: null,
     }
+    this.fetchBalance = this.fetchBalance.bind(this);
     }
 
 componentDidMount () {
     this.fetchOpenBets()
+    this.fetchBalance()
 }
 
 betSlip (e) {
@@ -32,12 +33,18 @@ placeBet () {
         team: this.props.currentGame
     }
     if (data.team !== "" && multiplied !== 0) {
+       
+
     axios.post('/bets', {
         amount: multiplied,
         team: data.team
     })
         .then(data => this.fetchOpenBets())
-    }
+    
+    axios.put('/placedbet', {money: this.state.money - multiplied})
+    
+}
+
 }
 
 fetchOpenBets () {
@@ -46,6 +53,14 @@ fetchOpenBets () {
             openBets: data.data }))
         .catch (err => console.error(err))
 
+}
+
+fetchBalance () {
+    console.log('fetching balance')
+    axios.get('/signup')
+        .then(data=>this.setState({
+            money: data.data.balance}))
+        .catch(err => console.error(err))
 }
 
 
