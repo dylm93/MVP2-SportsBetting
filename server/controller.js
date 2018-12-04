@@ -62,19 +62,19 @@ const controller = {
         var username = req.body.username;
         var password = req.body.password;
 
-        var template = {username: username, password: password, balance: 500}
+        bcrypt.hash(password, null, null, function (err, hash) {
+            if (err) {
+              console.log('password not strong enough' + err)
+            } else {
+              console.log('hashed password', hash)
+            var template = {username: username, password: hash, balance: 500}
                 db.Users.create(template)
                 .then (function (newUser) {
                     req.session.username = username;   
                     res.send(201) 
                 })
-        // bcrypt.hash(password, null, null, function (err, hash) {
-        //     if (err) {
-        //       console.log('password not strong enough' + err)
-        //     } else {
-        //       console.log('hashed password')
-        //     }
-        // })
+            }
+        })
     },
 
     getUserId: (req, res) => {
@@ -88,8 +88,8 @@ const controller = {
 
         db.Users.findOne({where: {username: username}}).then(function (user) {
             if (!user) {
-                alert ('invalid credentials')
-            } else if(user.username === username){
+                console.log(`User doesn't exist`)
+            } else if(user.username === username && bcrypt.compareSync(password, user.password)){
                     console.log('success')
                     req.session.username = user.username;
                     res.send(201)

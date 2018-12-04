@@ -28,8 +28,8 @@ betSlip (e) {
 }
 
 placeBet () {
-    
-    var multiplied = this.props.currentOdds * this.state.bet;
+    var odds = Math.abs(this.props.currentOdds)
+    var multiplied = odds/100 * this.state.bet;
     var data = {
         amount: multiplied,
         team: this.props.currentGame,
@@ -68,7 +68,7 @@ fetchBalance () {
 
 render () {
     return (
-    <div>
+    <div className = 'balance-betslip-openbets-container'>
         <div>Balance: ${this.state.money}</div>
         <div className = 'betslipcontainer'>
         <h1 className='betslipheader'>Bet Slip:</h1>
