@@ -7,48 +7,49 @@ class Bet extends React.Component {
         super (props)
     this.state = {
         bet: '',
+        betId: null,
         possibleBet: '',
         openBets: [],
         money: null,
     }
     this.fetchBalance = this.fetchBalance.bind(this);
+    this.fetchOpenBets = this.fetchOpenBets.bind(this);
     }
 
 componentDidMount () {
-    this.fetchOpenBets()
     this.fetchBalance()
+    this.fetchOpenBets()
 }
 
 betSlip (e) {
     this.setState ({
         bet: e.target.value
     })
-    
 }
 
 placeBet () {
+    
     var multiplied = this.props.currentOdds * this.state.bet;
     var data = {
         amount: multiplied,
-        team: this.props.currentGame
+        team: this.props.currentGame,
     }
     if (data.team !== "" && multiplied !== 0) {
-       
 
     axios.post('/bets', {
         amount: multiplied,
-        team: data.team
+        team: data.team,
+        betId: this.state.betId
     })
         .then(data => this.fetchOpenBets())
     
-    axios.put('/placedbet', {money: this.state.money - multiplied})
-    
+    axios.put('/placedbet', {money: this.state.money - this.state.bet})
+        .then(data => this.fetchBalance())
 }
-
 }
 
 fetchOpenBets () {
-    axios.get('/bets') 
+    axios.get('/bets')
         .then(data => this.setState ({
             openBets: data.data }))
         .catch (err => console.error(err))
@@ -56,12 +57,13 @@ fetchOpenBets () {
 }
 
 fetchBalance () {
-    console.log('fetching balance')
-    axios.get('/signup')
+    axios.get('/placedbet')
         .then(data=>this.setState({
             money: data.data.balance}))
         .catch(err => console.error(err))
 }
+
+
 
 
 render () {

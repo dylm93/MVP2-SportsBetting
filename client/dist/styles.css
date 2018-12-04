@@ -1,3 +1,37 @@
+.login-signup-container {
+    position: relative;
+    left: 5%;
+    width: 400px;
+    height: 65px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 10px;
+}
+
+.login {
+    padding: 5px;
+    position: relative;
+    left: 5%
+}
+
+.signup {
+    padding: 5px;
+    position: relative;
+    left: 5%;
+}
+
+::-webkit-input-placeholder { 
+    color:   gray;
+     opacity: 0.5;
+}
+
+.login-signup-button {
+    position: relative;
+    left: 5%;
+    border-radius: 5px;
+}
+
 .site {
     width: 600px;
     background-image: url('https://media.istockphoto.com/photos/football-or-soccer-field-line-markings-picture-id172850153?k=6&m=172850153&s=612x612&w=0&h=ED4NodyBF95IM3taBh4rueB4DFE-aWfmSeQ03uqywxk=');

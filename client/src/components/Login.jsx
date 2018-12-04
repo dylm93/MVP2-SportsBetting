@@ -9,10 +9,12 @@ class Login extends React.Component {
     this.state = {
         username: '',
         password: '',
+        usernamelogin: '',
+        passwordlogin: '',
         loggedIn: false
     }
     }
-
+    
 usernameSubmit (e) {
     this.setState ({
         username: e.target.value
@@ -23,25 +25,52 @@ passwordSubmit (e) {
         password: e.target.value
     })
 }
+usernameloginSubmit (e) {
+    this.setState ({
+        usernamelogin: e.target.value
+    })
+}
+passwordloginSubmit (e) {
+    this.setState ({
+        passwordlogin: e.target.value
+    })
+}
+
+Signup () {
+    var login =  {username: this.state.username,
+        password: this.state.password
+        }
+        axios.post ('/signup', login) 
+            .then(() => this.setState({
+                loggedIn: true
+            })) 
+}
 
 Login () {
-var login =  {username: this.state.username,
-     password: this.state.password
-    }
-    axios.post ('/signup', login) 
-        .then(() => this.setState ({
-            loggedIn: true
-        })) 
+    var login =  {username: this.state.usernamelogin,
+        password: this.state.passwordlogin
+        }
+        axios.post ('/login', login) 
+            .then(() => this.setState ({
+                loggedIn: true
+            })) 
 }
 
 render () {
     return (
         <div>
-            {this.state.loggedIn ? < App /> :
-            <div> 
-                <input value = {this.state.username} onChange = {(e) => this.usernameSubmit(e)}></input>
-                <input value = {this.state.password} onChange = {(e) => this.passwordSubmit(e)}></input>
-                <button onClick = {() => this.Login()}>Login</button>
+            {this.state.loggedIn ? < App betId = {this.state.betId} /> :
+            <div className = 'login-signup-container'> 
+                <div className = 'signup'>
+                    <input value = {this.state.username} onChange = {(e) => this.usernameSubmit(e)} placeholder = 'username'></input>
+                    <input value = {this.state.password} onChange = {(e) => this.passwordSubmit(e)} placeholder = 'password'></input>
+                    <button className = 'login-signup-button' onClick = {() => this.Signup()}>Sign Up</button>
+                </div>
+                <div className = 'login'>
+                    <input value = {this.state.usernamesignup} onChange = {(e) => this.usernameloginSubmit(e)} placeholder = 'username'></input>
+                    <input value = {this.state.passwordsignup} onChange = {(e) => this.passwordloginSubmit(e)} placeholder = 'password'></input>
+                    <button className = 'login-signup-button' onClick = {() => this.Login()}>Login</button>
+                </div>
             </div>
             }
         </div>

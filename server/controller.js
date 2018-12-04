@@ -8,15 +8,17 @@ var bcrypt = require('bcrypt-nodejs');
 
 const controller = {
     get: (req, res) => {
-        db.Bets.findAll({})
-            .then(data=>res.send(data))
+        db.Users.findOne({where: {username: req.session.username}})
+        .then(data=> db.Bets.findAll({where: {betId: data.dataValues.id}}))
+            .then(betdata=>res.send(betdata))
     },
     post: (req, res) => {
-        const { amount, team } = req.body
+        const { amount, team, betId } = req.body
         console.log(req.body)
-        db.Bets.create ( {amount: amount, team: team})
-            .then(data => res.status(201).send(data))
-            .catch((err) => console.error(err))
+        db.Users.findOne({where: {username: req.session.username}})
+        .then(data => db.Bets.create ( {amount: amount, team: team, betId: data.dataValues.id})
+        .then(data => res.status(201).send(data))
+        .catch((err) => console.error(err)))
     },
     getOdds: (req, res) => {
         var sport = 'americanfootball_nfl'
@@ -55,25 +57,46 @@ const controller = {
         }
       })
     },
-    loginPost: (req, res) => {
+    signUp: (req, res) => {
         
         var username = req.body.username;
         var password = req.body.password;
 
         var template = {username: username, password: password, balance: 500}
-
+                db.Users.create(template)
+                .then (function (newUser) {
+                    req.session.username = username;   
+                    res.send(201) 
+                })
         // bcrypt.hash(password, null, null, function (err, hash) {
         //     if (err) {
         //       console.log('password not strong enough' + err)
         //     } else {
         //       console.log('hashed password')
-        db.Users.create(template)
-            .then (function (newUser) {
-                req.session.username = username;
-                res.redirect('/bets')   
-
-            })
+        //     }
+        // })
     },
+
+    getUserId: (req, res) => {
+        db.Users.findOne({where: {username: req.session.username}})
+        .then(data=>res.send(data))
+    },
+
+    login: (req, res) => {
+        var username = req.body.username;
+        var password = req.body.password;
+
+        db.Users.findOne({where: {username: username}}).then(function (user) {
+            if (!user) {
+                alert ('invalid credentials')
+            } else if(user.username === username){
+                    console.log('success')
+                    req.session.username = user.username;
+                    res.send(201)
+                }
+            }) 
+    },
+    
     getBalance: (req, res) => {
         db.Users.findOne({where: {username: req.session.username}})
         .then(data=>res.send(data))
@@ -81,13 +104,8 @@ const controller = {
     },
     placeBet: (req, res) => {
         console.log(req.body)
-        db.Users.findOne({where: {username: req.session.username}})
-        .then(user=> {
-            user.update({
-                balance: req.body.money
-            })
-        }
-        )
+        db.Users.update({balance: req.body.money}, {where: {username: req.session.username}})
+        res.send(201)
     }
             
         
