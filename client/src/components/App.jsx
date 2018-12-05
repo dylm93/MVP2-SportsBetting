@@ -14,12 +14,22 @@ class App extends React.Component {
     this.onGameClick = this.onGameClick.bind(this)
 }
 
-componentDidMount () {
-    this.fetchOdds()
+setNBA () {
+    axios.get ('/api', {params: {sport: 'basketball_nba'}})
+        .then(data=>this.setState ({
+            games: data.data}, () => {console.log(this.state.games)}))
+        .catch(err=>console.error(err))
+}
+
+setNFL () {
+    axios.get ('/api', {params: {sport: 'americanfootball_nfl'}})
+        .then(data=>this.setState ({
+        games: data.data}, () => {console.log(this.state.games)}))
+        .catch(err=>console.error(err))
 }
 
 fetchOdds () {
-    axios.get ('/api')
+    axios.get ('/api', {params: {sport: this.state.sport}})
         .then(data=>this.setState ({
         games: data.data}))
         .catch(err=>console.error(err))
@@ -32,10 +42,13 @@ onGameClick (game, odds) {
     })
 }
 
-
 render () {
     return (
         <div>
+            <div className = 'leagues'>
+                <button onClick = {() => this.setNBA()} value = 'NBA'>NBA</button>
+                <button onClick = {() => this.setNFL()} value = 'NFL'>NFL</button>
+            </div>
             <Bet currentGame = {this.state.currentGame} currentOdds = {this.state.currentOdds} />
             <Games games = {this.state.games} onGameClick = {this.onGameClick} /> 
         </div>

@@ -21,10 +21,9 @@ const controller = {
         .catch((err) => console.error(err)))
     },
     getOdds: (req, res) => {
-        var sport = 'americanfootball_nfl'
         const apiKey = '3cd18c6687e9c299e11e016996cddf1c'
       let options = {
-        url: `https://api.the-odds-api.com/v3/odds?sport=${sport}&region=us&mkt=h2h&apiKey=${apiKey}`,
+        url: `https://api.the-odds-api.com/v3/odds?sport=${req.query.sport}&region=us&mkt=h2h&apiKey=${apiKey}`,
         dataType: 'json',
         type: 'GET'
       }

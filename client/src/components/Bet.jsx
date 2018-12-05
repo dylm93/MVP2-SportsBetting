@@ -28,6 +28,7 @@ betSlip (e) {
 }
 
 placeBet () {
+    
     var odds = Math.abs(this.props.currentOdds)
     var multiplied = odds/100 * this.state.bet;
     var data = {

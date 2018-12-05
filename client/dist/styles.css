@@ -1,12 +1,14 @@
 .login-signup-container {
     position: relative;
     left: 5%;
-    width: 400px;
+    top: 20px;
+    width: 370px;
     height: 65px;
     border-style: solid;
     border-width: 1px;
     border-color: black;
     border-radius: 10px;
+    background-color: lightgray
 }
 
 .login {
@@ -37,6 +39,11 @@
     top: 5px;
 }
 
+.leagues {
+    position: relative;
+    left: 350px;
+}
+
 .site {
     width: 600px;
     background-image: url('https://media.istockphoto.com/photos/football-or-soccer-field-line-markings-picture-id172850153?k=6&m=172850153&s=612x612&w=0&h=ED4NodyBF95IM3taBh4rueB4DFE-aWfmSeQ03uqywxk=');
@@ -49,9 +56,7 @@
     border-color: black;
     position: absolute;
     left: 30%;
-    top: 0%;
-    
-    
+    top: 5%;
 }
 
 .gamecontainer {
