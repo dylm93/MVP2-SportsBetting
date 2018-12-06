@@ -15,7 +15,7 @@ class App extends React.Component {
 }
 
 setNBA () {
-    axios.get ('/api', {params: {sport: 'basketball_nba'}})
+    axios.get ('/api', {params: {sport: 'basketball_nba', region: 'us'}})
         .then(data=>this.setState ({
             games: [],
         }, () => this.setState({
@@ -25,7 +25,7 @@ setNBA () {
 }
 
 setNFL () {
-    axios.get ('/api', {params: {sport: 'americanfootball_nfl'}})
+    axios.get ('/api', {params: {sport: 'americanfootball_nfl', region: 'us'}})
         .then(data=>this.setState ({
             games: [],
     }, () => this.setState({
@@ -33,6 +33,48 @@ setNFL () {
     })))
         .catch(err=>console.error(err))
 }
+
+setNHL () {
+    axios.get ('/api', {params: {sport: 'icehockey_nhl', region: 'us'}})
+        .then(data=>this.setState ({
+            games: [],
+    }, () => this.setState({
+            games: data.data
+    })))
+        .catch(err=>console.error(err))
+}
+
+setNCAAFB () {
+    axios.get ('/api', {params: {sport: 'americanfootball_ncaaf', region: 'us'}})
+        .then(data=>this.setState ({
+            games: [],
+    }, () => this.setState({
+            games: data.data
+    })))
+        .catch(err=>console.error(err))
+}
+
+setUCL () {
+    axios.get ('/api', {params: {sport: 'soccer_uefa_champs_league', region: 'uk'}})
+        .then(data=>this.setState ({
+            games: [],
+    }, () => this.setState({
+            games: data.data
+    })))
+        .catch(err=>console.error(err))
+}
+
+setEPL () {
+    axios.get ('/api', {params: {sport: 'soccer_epl', region: 'uk'}})
+        .then(data=>this.setState ({
+            games: [],
+    }, () => this.setState({
+            games: data.data
+    })))
+        .catch(err=>console.error(err))
+}
+
+
 
 fetchOdds () {
     axios.get ('/api', {params: {sport: this.state.sport}})
@@ -48,22 +90,17 @@ onGameClick (game, odds) {
     })
 }
 
-// renderTag() {
-//     const { 
-//       sport,
-//       games,
-//     } = this.state
-//     console.log('hello',games)
-//     if (sport === 'nfl') return <Games sport={sport} games={games} onGameClick={this.onGameClick} />  
-//     if (sport === 'nba') return <Games sport={sport} games={games} onGameClick={this.onGameClick} />; 
-// }
 
 render () {
     return (
         <div>
             <div className = 'leagues'>
-                <button onClick = {() => this.setNBA()} value = 'NBA'>NBA</button>
-                <button onClick = {() => this.setNFL()} value = 'NFL'>NFL</button>
+                <button className = 'league-button' onClick = {() => this.setNBA()} value = 'NBA'>NBA</button>
+                <button className = 'league-button' onClick = {() => this.setNFL()} value = 'NFL'>NFL</button>
+                <button className = 'league-button' onClick = {() => this.setNHL()} value = 'NFL'>NHL</button>
+                <button className = 'league-button' onClick = {() => this.setNCAAFB()} value = 'NCAAFB'>NCAAFB</button>
+                <button className = 'league-button' onClick = {() => this.setUCL()} value = 'UCL'>UCL</button>
+                <button className = 'league-button' onClick = {() => this.setEPL()} value = 'EPL'>EPL</button>
             </div>
             <Bet currentGame = {this.state.currentGame} currentOdds = {this.state.currentOdds} />
             <Games games={this.state.games} onGameClick={this.onGameClick} /> 

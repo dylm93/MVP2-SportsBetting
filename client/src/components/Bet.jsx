@@ -94,7 +94,7 @@ render () {
             </div>
         </div>
         <div className = 'openbets' >
-            <div>Open Bets</div>
+            <div className = 'openbets-header'>Open Bets</div>
             <OpenBets bets = {this.state.openBets}/>
         </div>
     </div>
