@@ -32,16 +32,18 @@ gameSplitter () {
     var odds2 = game[3].split(',')[1]
 
     if (odds1 > 2) {
-        odds1 = '+' + Math.ceil((Math.round(odds1 * 100))/25)*25
+        odds1 = '+' + Math.ceil((Math.round(odds1 * 100 - 100))/10)*10
     }
     if (odds1 < 2) {
-        odds1 = '-' + Math.ceil(((2 - odds1 + 1) * 100)/25)*25
+        var denominator = odds1 - 1;
+        odds1 = Math.ceil((-100/denominator)/10)*10
     }
     if (odds2 > 2) {
-        odds2 = '+' + Math.ceil((Math.round(odds2 * 100))/25)*25
+        odds2 = '+' + Math.ceil((Math.round(odds2 * 100 - 100))/10)*10
     }
     if (odds2 < 2) {
-        odds2 = '-' + Math.ceil(((2 - odds2 + 1) * 100)/25)*25
+        var denominator = odds2 - 1;
+        odds2 = Math.ceil((-100/denominator)/10)*10
     }
     console.log(odds1, odds2)
     console.log(game)

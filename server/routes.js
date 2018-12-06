@@ -14,5 +14,6 @@ router.route('/login')
 router.route('/placedbet')
     .get(controller.getBalance)
     .put(controller.placeBet)
-
+router.route('/scores')
+    .get(controller.getScores)
 module.exports = router;

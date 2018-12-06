@@ -28,9 +28,11 @@ betSlip (e) {
 }
 
 placeBet () {
-    
-    var odds = Math.abs(this.props.currentOdds)
-    var multiplied = odds/100 * this.state.bet;
+    if (this.props.currentOdds > 0) {
+        var multiplied = ((this.props.currentOdds/100) + 1) * this.state.bet
+    } else if (this.props.currentOdds < 0) {
+        var multiplied = ((100/Math.abs(this.props.currentOdds)) + 1) * this.state.bet
+    }
     var data = {
         amount: multiplied,
         team: this.props.currentGame,
@@ -64,21 +66,31 @@ fetchBalance () {
         .catch(err => console.error(err))
 }
 
+// fetchScores () {
+//     axios.get('/scores')
+//         .then(data => console.log(data))
+//         .catch(err => console.error(err))
+// }
 
 
 
 render () {
     return (
     <div className = 'balance-betslip-openbets-container'>
-        <div>Balance: ${this.state.money}</div>
+        <div className = 'balance'>Balance: ${this.state.money}</div>
         <div className = 'betslipcontainer'>
-        <h1 className='betslipheader'>Bet Slip:</h1>
+        <div className='betslipheader'>
+            <h1 className = 'betsliptext'>BET SLIP</h1>
+        </div>
             <div >
-                    {this.props.currentGame}
-                <input value = {this.state.bet} onChange = {(e) => this.betSlip(e)}></input>
-                    {this.props.currentOdds}
-                <div>{this.state.possibleBet}</div>
-                <button onClick = {() => this.placeBet()} className = 'placebetbutton'>Place Bet</button>
+                <div className = 'currentbet'>  
+                    <span className = 'currentgame' >{this.props.currentGame}</span>
+                    <span className = 'currentodds'>{this.props.currentOdds}</span>
+                </div> 
+                <div className = 'makebetinputcontainer'>
+                    <input className = 'makebetinput' value = {this.state.bet} onChange = {(e) => this.betSlip(e)}></input>
+                </div>
+                <button onClick = {() => this.placeBet()} className = 'placebetbutton'>PLACE BET</button>
             </div>
         </div>
         <div className = 'openbets' >

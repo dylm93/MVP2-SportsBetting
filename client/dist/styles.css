@@ -1,3 +1,7 @@
+body {
+    font-family: Oswald,sans-serif;
+}
+
 .login-signup-container {
     position: relative;
     left: 5%;
@@ -82,19 +86,49 @@
     width: 400px;
 }
 
-.betslipheader {
+.balance {
+    text-align: left;
+}
+
+.makebetinput {
+    height: 25px;
+    width: 135px;
     font-size: 20px;
+}
+
+.makebetinputcontainer {
+    position: relative;
+    top: 10px;
+    left: 46%;
+}
+
+.betslipheader {
+    position: relative;
+    font-size: 10px;
+    height: 30px;
+    top: 1px;
+    border-style: solid;
+    border-width: 2px 2px 4px 2px;
+    border-radius: 15px 15px 0px 0px;
+    background-color: #4682b4;
+    color: #fff;  
+}
+
+.betsliptext {
+    position: relative;
+    left: 10px;
+    top: -9px;
 }
 
 .betslipcontainer {
     border-style: solid;
     border-width: 1px;
     border-color: black;
-    border-radius: 25px;
-    margin-top: 10px;
-    text-align: center;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: #b2bab9;
     width: 290px;
-    height: 100px;
+    height: 160px;
     left: 0%
 }
 
@@ -103,12 +137,42 @@
     padding: 2px;
 }
 
-.betslipinput {
-    position: fixed;
+.placebetbutton {
+    font-size: 17px;
+    line-height: 25px;
+    margin-top: 5px;
+    border-color: #459418;
+    color: #fff;
+    background-image: linear-gradient(#66aa1e,#459418);
+    border-radius: 3px;
+    box-shadow: 0 3px 0 0 #34620d;
+    font-family: Oswald,sans-serif;
+    width: 50%;
+    position: relative;
+    padding: 5px;
+    bottom: -13px;
+    float: right;
+    margin-right: 13px;
 }
 
-.placebetbutton {
+.currentbet {
+    border-radius: 1px;
+    border-color: white;
+    font-size: 19px;
+    color: #fff;
+    width: 250px;
+    height: 30px; 
+    position: relative;
+    left: 8%;
+    top: 9px;
+}
+
+.currentgame {
     padding: 2px;
+}
+
+.currentodds {
+    margin-left: 10px;
 }
 
 .openbets {

@@ -33,19 +33,29 @@ const controller = {
             console.error(err)
         } else {
             var body = JSON.parse(data)
+            
             var games = {}
             var teams = [];
             var gamesArr = [];
            
             for (var i = 0; i < body.data.length; i++) {
                 for (var j = 0; j < body['data'][i]['sites'].length; j++) {
+                    if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {
+                        console.log('game', body['data'][i]['teams'], body['data'][i]['sites'][j])
+                    }
                  if (!games[body['data'][i]['teams']]) {
-                    games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                    if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {
+                        games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                    }
                 } else {
-                    games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                    if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {
+                        games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                    }
                 }
+            
             }
         }
+        
         for (var key in games) {
             if (games.hasOwnProperty(key)) {
                 gamesArr.push(`'` + key + `'` + '=' + `'` + games[key] + `'`);
@@ -55,6 +65,24 @@ const controller = {
         
         }
       })
+    },
+
+    getScores: (req, res) => {
+    //     const apiKey = '191575b9-e3e7-425f-90ee-598e94'
+    //   let options = {
+    //     headers:  `Authorization": "Basic " + btoa(${apiKey} + ":" + MYSPORTSFEEDS)`,
+    //     url: `https://api.mysportsfeeds.com/v2.0/pull/nba/2018-2019-regular/date/20181017/games.json`,
+    //     dataType: 'json',
+    //     type: 'GET'
+    //   }
+
+    //   request (options, (err, result, data)=> {
+    //     if (err) {
+    //         console.error(err)
+    //     } else {
+    //         console.log(data)
+    //     }
+    // })
     },
     signUp: (req, res) => {
         
