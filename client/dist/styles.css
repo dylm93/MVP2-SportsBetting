@@ -1,5 +1,84 @@
 body {
     font-family: Oswald,sans-serif;
+    width: 100%;
+    margin: 0
+}
+
+.navbar {
+    display: flex;
+    background-color: black;
+    color: #fff;
+    justify-content: flex-end;
+    height: 38px;
+    position: fixed;  
+    width: 100%;
+    top: 0%;
+    z-index: 1;
+    
+}
+
+/* .navbar-left {
+    display: flex;
+    background-color: black;
+    color: #fff;
+    justify-content: flex-end;
+    height: 43px;
+    position: relative;
+    left: -10px;   
+    width: 350px; 
+    top: -37px;
+} */
+
+.navbar-login {
+    display: flex;
+    background-color: black;
+    color: #fff;
+    justify-content: flex-end;
+    height: 43px;
+    position: relative;
+    left: 0%;   
+    width: 100%; 
+    top: 0%;
+}
+
+.header-login {
+    right: 45%;
+    position: relative;
+    top: -20px;
+}
+
+.header {
+    right: 40%;
+    position: relative;
+    top: -20px;
+}
+
+.user-money {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    bottom: 7px;
+    padding-right: 6px;
+    position: relative;
+    display: block;
+    font-size: 14px;
+    font-style: bold;
+}
+
+.user{
+    display: block;
+    font-style: bold;
+    font-stretch: expanded;
+    text-align: center;
+    padding: 1px;
+}
+
+.money{
+    display: block;
+    font-style: bold;
+    font-stretch: expanded;
+    text-align: center;
+    padding: 1px;
 }
 
 .login-signup-container {
@@ -36,23 +115,24 @@ body {
     position: relative;
     left: 5%;
     border-radius: 5px;
+    outline: none;
 }
 
 .balance-betslip-openbets-container {
     position: fixed;
-    top: 5px;
+    top: 25px;
 }
 
 .leagues {
     display: flex;
     justify-content: flex-start;
     position: relative;
-    left: 345px;
+    left: 338px;
     border-radius: 15px 15px 0px 0px;
     background-color: #b2bab9;
     color: #fff; 
-    width: 600px;
-    top: 5px;
+    width: 50%;
+    top: 41px;
 }
 
 .league-button {
@@ -66,7 +146,7 @@ body {
 }
 
 .site {
-    width: 600px;
+    width: 50%;
     background-image: url('https://media.istockphoto.com/photos/football-or-soccer-field-line-markings-picture-id172850153?k=6&m=172850153&s=612x612&w=0&h=ED4NodyBF95IM3taBh4rueB4DFE-aWfmSeQ03uqywxk=');
     background-size: cover;
     background-repeat: no-repeat;
@@ -76,11 +156,13 @@ body {
     border-width: 1px;
     border-color: black;
     position: absolute;
-    left: 30%;
-    top: 5%;
+    left: 337px;
+    top: 62px;
 }
 
 .gamecontainer {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     opacity: 0.5;
     position: relative;
@@ -88,11 +170,19 @@ body {
     border-width: 1px;
     left: 17%;
     border-color: black;
-    width: 400px;
+    width: 70%;
+}
+
+.tie {
+    text-align: center;
+    float: center;
+    font-size: 25px;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
 }
 
 .selectedgamecontainer {
-    z-index: 1;
     background-color: white;
     opacity: 0.75;
     position: relative;
@@ -100,7 +190,7 @@ body {
     border-width: 4px;
     left: 17%;
     border-color: black;
-    width: 400px;
+    width: 70%;
 }
 
 .balance {
@@ -146,6 +236,8 @@ body {
     background-color: #b2bab9;
     width: 290px;
     height: 160px;
+    position: relative;
+    top: 6px;
     left: 0%
 }
 
@@ -234,44 +326,41 @@ body {
 
 .team1 {
     text-align: center;
-    display: inline-block;
+    float: center;
     font-size: 30px;
     padding: 10px;
 }
 
 .team2 {
     text-align: center;
-    display: inline-block;
+    float: center;
     font-size: 30px;
     padding: 10px;
 }
 
-.team1containerhover {
-    opacity: 1;
-    font-size: 35px;
-}
-
-.team2containerhover {
-    opacity: 1;
-    font-size: 35px;
-}
-
 .odds1 {
-    text-align: center;
-    display: inline;
+    position: relative;
+    left: 40%;
     font-size: 30px;
 }
 
 .odds2 {
-    text-align: center;
-    display: inline;
+    position: relative;
+    left: 40%;
     font-size: 30px;
 }
 
 .versus {
     text-align: center;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
 }
 
-.money {
-    font-size: 20px;
+.teamodds1 {
+    position: relative;
 }
+
+.teamodds2 {
+    position: relative;
+}
+

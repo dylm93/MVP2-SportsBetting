@@ -8,6 +8,8 @@ class Game extends React.Component  {
         team2: '',
         odds1: '',
         odds2: '',
+        soccer: false,
+        soccerOrOtherSport: null,
         hover: false,
         gamehover: false,
         game1hover: false
@@ -25,9 +27,16 @@ componentDidMount () {
 }
 
 gameSplitter () {
+    
+
     var game = this.props.game.split(`'`)
+    
     var team1 = game[1].split(',')[0]
     var team2 = game[1].split(',')[1]
+    var soccerOrOther = game[3].split(',');
+    
+    if(soccerOrOther.length === 2) {
+        console.log('basketball')
     var odds1 = game[3].split(',')[0]
     var odds2 = game[3].split(',')[1]
 
@@ -51,8 +60,61 @@ gameSplitter () {
         team1: team1,
         team2: team2,
         odds1: odds1,
-        odds2: odds2
+        odds2: odds2,
+        soccerOrOtherSport: 'vs',
+        soccer: false
     })
+} else {
+    var odds1 = game[3].split(',')[0]
+    var odds2 = game[3].split(',')[1]
+    var tie = game[3].split(',')[2]
+
+    if (odds1 > 2) {
+        odds1 = '+' + Math.ceil((Math.round(odds1 * 100 - 100))/10)*10
+    }
+    if (odds1 < 2) {
+        var denominator = odds1 - 1;
+        odds1 = Math.ceil((-100/denominator)/10)*10
+    }
+    if (odds1 === 2) {
+        odds1= +100
+    }
+    
+    if (tie > 2) {
+        tie = '+' + Math.ceil((Math.round(tie * 100 - 100))/10)*10
+    }
+    if (tie < 2) {
+        var denominator = tie - 1;
+        tie = Math.ceil((-100/denominator)/10)*10
+    }
+    if (tie === 2) {
+        tie= +100
+    }
+    
+
+    if (odds2 > 2) {
+        odds2 = '+' + Math.ceil((Math.round(odds2 * 100 - 100))/10)*10
+    }
+    if (odds2 < 2) {
+        var denominator = odds2 - 1;
+        odds2 = Math.ceil((-100/denominator)/10)*10
+    }
+
+    if (odds2 === 2) {
+        odds2 = +100
+    }
+    console.log(odds1, odds2)
+    console.log(game)
+    this.setState ({
+        team1: team1,
+        team2: team2,
+        odds1: odds1,
+        odds2: odds2,
+        soccerOrOtherSport: tie,
+        soccer: true
+    })
+
+}
 }
 
 onMouseOver () {
@@ -91,19 +153,20 @@ game2Leave () {
     })
 }
 
-
     
 render () {
     return (
     <div>
         <div>
         <div onMouseOver = {this.onMouseOver} onMouseLeave = {this.onMouseLeave} className = {this.state.hover ? 'selectedgamecontainer' : 'gamecontainer'}>
-            <div onMouseOver = {this.game1Hover} onMouseLeave={this.game1Leave} className = {this.state.gamehover ? 'team1containerhover' : 'team1container'}>
+            <div className = 'teamodds1' onMouseOver = {this.game1Hover} onMouseLeave={this.game1Leave}>
                 <div onClick = {() => this.props.onGameClick(this.state.team1, this.state.odds1)} className = 'team1'>{this.state.team1}</div>
                 <div className = 'odds1'>{this.state.odds1}</div>
             </div>
-            <div className = 'versus'>vs</div>
-            <div onMouseOver = {this.game2Hover} onMouseLeave={this.game2Leave} className = {this.state.game1hover ? 'team2containerhover' : 'team2container'}>
+            {this.state.soccer? <div onClick = {() => this.props.onGameClick(`${this.state.team1} Tie ${this.state.team2}`, this.state.soccerOrOtherSport)} className = 'tie'> 
+                Draw {this.state.soccerOrOtherSport}
+            </div> : <div className = 'versus'>{this.state.soccerOrOtherSport}</div>}
+            <div className = 'teamodds2' onMouseOver = {this.game2Hover} onMouseLeave={this.game2Leave}>
                 <div onClick = {() => this.props.onGameClick(this.state.team2, this.state.odds2)} className = 'team2'>{this.state.team2}</div>
                 <div className = 'odds2'>{this.state.odds2}</div>
             </div>

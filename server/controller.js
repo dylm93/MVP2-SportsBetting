@@ -28,6 +28,48 @@ const controller = {
         type: 'GET'
       }
 
+      if (req.query.region === 'uk') {
+        request (options, (err, result, data)=> {
+            if (err) {
+                console.error(err)
+            } else {
+                var body = JSON.parse(data)
+                
+                var games = {}
+                var teams = [];
+                var gamesArr = [];
+               
+                for (var i = 0; i < body.data.length; i++) {
+                    for (var j = 0; j < body['data'][i]['sites'].length; j++) {
+                        if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
+                            console.log('game', body['data'][i]['teams'], body['data'][i]['sites'][j]['odds']['h2h'])
+                        }
+                     if (!games[body['data'][i]['teams']]) {
+                        if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
+                            games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                        }
+                    } else {
+                        if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
+                            games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                        }
+                    }
+                
+                }
+            }
+            for (var key in games) {
+                if (games.hasOwnProperty(key)) {
+                    gamesArr.push(`'` + key + `'` + '=' + `'` + games[key] + `'`);
+                }
+            }   
+            res.send(gamesArr)
+        }
+    })
+}
+
+if (req.query.region === 'us') {
+
+    console.log('basketballlll')
+
       request (options, (err, result, data)=> {
         if (err) {
             console.error(err)
@@ -55,6 +97,7 @@ const controller = {
             
             }
         }
+
         
         for (var key in games) {
             if (games.hasOwnProperty(key)) {
@@ -65,6 +108,7 @@ const controller = {
         
         }
       })
+    } 
     },
 
     getScores: (req, res) => {
@@ -89,6 +133,10 @@ const controller = {
         var username = req.body.username;
         var password = req.body.password;
 
+        db.Users.findOne({where: {username: username}}).then(function (user) {
+            if (user) {
+                console.log('errrrr')
+            } else {
         bcrypt.hash(password, null, null, function (err, hash) {
             if (err) {
               console.log('password not strong enough' + err)
@@ -102,6 +150,8 @@ const controller = {
                 })
             }
         })
+    }
+    })
     },
 
     getUserId: (req, res) => {

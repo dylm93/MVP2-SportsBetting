@@ -44,6 +44,7 @@ Signup () {
             .then(() => this.setState({
                 loggedIn: true
             })) 
+            .catch(()=> alert('User already exists'))
 }
 
 Login () {
@@ -54,24 +55,30 @@ Login () {
             .then(() => this.setState ({
                 loggedIn: true
             })) 
+            .catch(() => alert('Invalid Credentials'))
 }
 
 render () {
     return (
         <div>
-            {this.state.loggedIn ? < App betId = {this.state.betId} /> :
+            {this.state.loggedIn ? < App username = {this.state.username} betId = {this.state.betId} /> :
+        <div> 
+            {/* <div className = 'navbar-login'>
+                <h1 className = 'header-login' >BET310</h1>
+            </div> */}
             <div className = 'login-signup-container'> 
                 <div className = 'signup'>
                     <input value = {this.state.username} onChange = {(e) => this.usernameSubmit(e)} placeholder = 'username'></input>
-                    <input value = {this.state.password} onChange = {(e) => this.passwordSubmit(e)} placeholder = 'password'></input>
+                    <input value = {this.state.password} onChange = {(e) => this.passwordSubmit(e)} placeholder = 'password' type = 'password'></input>
                     <button className = 'login-signup-button' onClick = {() => this.Signup()}>Sign Up</button>
                 </div>
                 <div className = 'login'>
                     <input value = {this.state.usernamesignup} onChange = {(e) => this.usernameloginSubmit(e)} placeholder = 'username'></input>
-                    <input value = {this.state.passwordsignup} onChange = {(e) => this.passwordloginSubmit(e)} placeholder = 'password'></input>
+                    <input value = {this.state.passwordsignup} onChange = {(e) => this.passwordloginSubmit(e)} placeholder = 'password' type = 'password'></input>
                     <button className = 'login-signup-button' onClick = {() => this.Login()}>Login</button>
                 </div>
             </div>
+        </div>    
             }
         </div>
 
