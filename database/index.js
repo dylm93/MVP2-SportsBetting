@@ -3,7 +3,7 @@ const seq = require ('sequelize');
 const postgres = require('pg');
 
 const connectionPostgres = new seq('bets', 'dylanmccarthy', 'g', {
-  host: 'localhost',
+  host: 'ec2-52-1-75-85.compute-1.amazonaws.com',
   dialect: 'postgres'
 });
 
