@@ -5,6 +5,7 @@ const Bets = postgres.define(
     'bets',
  {
     id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+    gameid: {type: Sequelize.STRING},
     amount: {type: Sequelize.INTEGER},
     team: {type: Sequelize.STRING},
 },
@@ -23,22 +24,32 @@ const Users = postgres.define(
     balance: {type: Sequelize.INTEGER}
 },
 {
-    timestamps: false
+    timestamps: false 
 }
+)
+
+const Winners = postgres.define(
+    'winners',
+    {
+        id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+        winners: {type: Sequelize.STRING}
+    }
 )
 
 Users.hasMany(Bets, { as: 'Bets', foreignKey: 'betId'} );
 Bets.belongsTo(Users, {foreignKey: 'betId'})
 
 Users.sync()
-    .then(() => console.log('Data created'))
+    .then(() => console.log('Users created'))
     .catch(err => console.error(err));
-
-
 
 Bets.sync()
-    .then(() => console.log('Data created'))
+    .then(() => console.log('Bets created'))
+    .catch(err => console.error(err));
+
+Winners.sync()
+    .then(() => console.log('Winners created'))
     .catch(err => console.error(err));
 
 
-module.exports = { Users, Bets };
+module.exports = { Users, Bets, Winners };

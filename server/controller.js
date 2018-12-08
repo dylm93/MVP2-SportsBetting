@@ -13,12 +13,28 @@ const controller = {
             .then(betdata=>res.send(betdata))
     },
     post: (req, res) => {
-        const { amount, team, betId } = req.body
-        console.log(req.body)
+        const {gameid, amount, team, betId } = req.body
         db.Users.findOne({where: {username: req.session.username}})
-        .then(data => db.Bets.create ( {amount: amount, team: team, betId: data.dataValues.id})
+        .then(data => db.Bets.create ( {gameid: gameid, amount: amount, team: team, betId: data.dataValues.id})
         .then(data => res.status(201).send(data))
         .catch((err) => console.error(err)))
+    },
+    delete: (req, res) => {
+        var winners = req.query.winners;
+        var gameIdArr = [];
+        var teamArr = [];
+        for (var i = 0 ; i < winners.length; i++) {
+            var winner = JSON.parse(winners[i])
+            console.log('winner', winner)
+            gameIdArr.push(winner['gameid'])
+            teamArr.push(winner['team'])
+        }
+        console.log(gameIdArr)
+        console.log(teamArr)
+            db.Users.findOne({where: {username: req.session.username}})
+                .then(data=> db.Bets.destroy({where: {gameid: gameIdArr, team: teamArr, betId: data.dataValues.id}}))
+                    .catch(err=>console.error(err))
+        
     },
     getOdds: (req, res) => {
         const apiKey = '3cd18c6687e9c299e11e016996cddf1c'
@@ -58,7 +74,9 @@ const controller = {
             }
             for (var key in games) {
                 if (games.hasOwnProperty(key)) {
-                    gamesArr.push(`'` + key + `'` + '=' + `'` + games[key] + `'`);
+                    var count = 1;
+                    gamesArr.push(`'` + key + `'` + '=' + `'` + games[key] + `'` + count);
+                    count++;
                 }
             }   
             res.send(gamesArr)
@@ -68,8 +86,6 @@ const controller = {
 
 if (req.query.region === 'us') {
 
-    console.log('basketballlll')
-
       request (options, (err, result, data)=> {
         if (err) {
             console.error(err)
@@ -77,9 +93,8 @@ if (req.query.region === 'us') {
             var body = JSON.parse(data)
             
             var games = {}
-            var teams = [];
             var gamesArr = [];
-           
+            var count = 1;
             for (var i = 0; i < body.data.length; i++) {
                 for (var j = 0; j < body['data'][i]['sites'].length; j++) {
                     if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {
@@ -87,21 +102,21 @@ if (req.query.region === 'us') {
                     }
                  if (!games[body['data'][i]['teams']]) {
                     if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {
-                        games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                        games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h'] + `'` + count + `'`
                     }
                 } else {
                     if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {
-                        games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                        games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h'] + `'` + count + `'`
                     }
                 }
-            
             }
+            count = count + 1
         }
 
         
         for (var key in games) {
             if (games.hasOwnProperty(key)) {
-                gamesArr.push(`'` + key + `'` + '=' + `'` + games[key] + `'`);
+                gamesArr.push(`'` + key + `'` + '=' + `'` + games[key]);
             }
         }   
         res.send(gamesArr)
@@ -109,24 +124,6 @@ if (req.query.region === 'us') {
         }
       })
     } 
-    },
-
-    getScores: (req, res) => {
-    //     const apiKey = '191575b9-e3e7-425f-90ee-598e94'
-    //   let options = {
-    //     headers:  `Authorization": "Basic " + btoa(${apiKey} + ":" + MYSPORTSFEEDS)`,
-    //     url: `https://api.mysportsfeeds.com/v2.0/pull/nba/2018-2019-regular/date/20181017/games.json`,
-    //     dataType: 'json',
-    //     type: 'GET'
-    //   }
-
-    //   request (options, (err, result, data)=> {
-    //     if (err) {
-    //         console.error(err)
-    //     } else {
-    //         console.log(data)
-    //     }
-    // })
     },
     signUp: (req, res) => {
         
@@ -183,10 +180,40 @@ if (req.query.region === 'us') {
         console.log(req.body)
         db.Users.update({balance: req.body.money}, {where: {username: req.session.username}})
         res.send(201)
+    },
+    postWinners: (req, res) => {
+        db.Winners.create({winners: req.body.winners})
+            .then(winners => {
+                console.log(winners)
+                res.send(201)
+            })
+    },
+    getWinners: (req, res) => {
+        db.Winners.findAll({})
+            .then(data=>res.send(data))
+    },
+    compareWinners: (req, res) => {
+        var winner = req.query.winners;
+        var gameID = [];
+        var team = [];
+        for (var i = 0; i < winner.length; i++) {
+            eachWinner = JSON.parse(winner[i]);
+            eachWinnerSplit = eachWinner.winners.split(',');
+            console.log(eachWinnerSplit)
+            for (var j = 0; j < eachWinnerSplit.length; j++) {
+                gameID.push(eachWinnerSplit[j].split(':')[0])
+                team.push(eachWinnerSplit[j].split(': ')[1])
+        }
+        console.log(team)
+        console.log(gameID)
+    }  
+           
+        db.Users.findOne({where: {username: req.session.username}})
+            .then(data=> db.Bets.findAll({where: {gameid: gameID, team: team, betId: data.dataValues.id}}))
+                .then(betdata=>res.status(200).send(betdata))
+                    .catch(err=>console.error(err)) 
+                
     }
-            
-        
-
     }
 
 module.exports = controller;

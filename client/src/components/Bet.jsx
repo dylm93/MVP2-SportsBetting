@@ -12,14 +12,17 @@ class Bet extends React.Component {
         possibleBet: '',
         openBets: [],
         money: null,
+        winners: []
     }
     this.fetchBalance = this.fetchBalance.bind(this);
     this.fetchOpenBets = this.fetchOpenBets.bind(this);
+    this.fetchWinners = this.fetchWinners.bind(this);
     }
 
 componentDidMount () {
     this.fetchBalance()
     this.fetchOpenBets()
+    this.fetchWinners()
 }
 
 betSlip (e) {
@@ -37,10 +40,12 @@ placeBet () {
     var data = {
         amount: multiplied,
         team: this.props.currentGame,
+        gameID: this.props.currentGameID
     }
     if (data.team !== "" && multiplied !== 0) {
 
     axios.post('/bets', {
+        gameid: data.gameID,
         amount: multiplied,
         team: data.team,
         betId: this.state.betId
@@ -67,8 +72,23 @@ fetchBalance () {
         .catch(err => console.error(err))
 }
 
-
-
+fetchWinners () {
+    axios.get('/winners')
+        .then(data=>
+            axios.get('/comparewinners', {params: {winners: data.data}}))
+                .then(data=> 
+                    {var winnings = 0;
+                        for (var i = 0; i < data.data.length; i++) {
+                        winnings += data.data[i]['amount']
+                    }
+                    console.log(winnings)
+                    if (winnings > 0) {
+                        axios.put('/placedbet', {money: this.state.money + winnings})
+                            .then(()=>axios.delete('/bets', {params: {winners: data.data}})
+                                .then(() => this.fetchBalance())
+                                    .then(() => this.fetchOpenBets()))
+                    }})
+}
 
 
 render () {
@@ -82,6 +102,7 @@ render () {
             </div>
                 <div >
                     <div className = 'currentbet'>  
+                        <span className = 'currentgameID'>{this.props.currentGameID}</span>
                         <span className = 'currentgame' >{this.props.currentGame}</span>
                         <span className = 'currentodds'>{this.props.currentOdds}</span>
                     </div> 

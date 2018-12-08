@@ -1,5 +1,6 @@
 import React from 'react';
 import App from './App.jsx';
+import Winners from './Winners.jsx';
 import axios from "axios";
 
 
@@ -61,6 +62,7 @@ Login () {
 render () {
     return (
         <div>
+            <Winners />
             {this.state.loggedIn ? < App username = {this.state.username} betId = {this.state.betId} /> :
         <div> 
             {/* <div className = 'navbar-login'>

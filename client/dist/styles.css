@@ -284,6 +284,14 @@ body {
     margin-left: 10px;
 }
 
+.currentgameID {
+    font-size: 10px;
+    position: relative;
+    left: -5%;
+    top: 2%;
+    float: left;
+}
+
 .openbets {
     text-align: center;
     position: relative;
@@ -304,6 +312,13 @@ body {
     border-radius: 15px 15px 0px 0px;
     background-color: #4682b4;
     color: #fff;  
+}
+
+.openbet-gameid {
+    position: relative;
+    display: inline;
+    font-size: 10px;
+    left: -10%;
 }
 
 .closebets {

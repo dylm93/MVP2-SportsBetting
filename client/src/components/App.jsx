@@ -9,6 +9,7 @@ class App extends React.Component {
         super(props);
     this.state = {
         games: [],
+        sport: '',
         currentGame: ''
     }
     this.onGameClick = this.onGameClick.bind(this)
@@ -19,7 +20,8 @@ setNBA () {
         .then(data=>this.setState ({
             games: [],
         }, () => this.setState({
-            games: data.data
+            games: data.data,
+            sport: 'NBA'
         })))
         .catch(err=>console.error(err))
 }
@@ -29,7 +31,8 @@ setNFL () {
         .then(data=>this.setState ({
             games: [],
     }, () => this.setState({
-            games: data.data
+            games: data.data,
+            sport: 'NFL'
     })))
         .catch(err=>console.error(err))
 }
@@ -39,7 +42,8 @@ setNHL () {
         .then(data=>this.setState ({
             games: [],
     }, () => this.setState({
-            games: data.data
+            games: data.data,
+            sport: 'NHL'
     })))
         .catch(err=>console.error(err))
 }
@@ -49,7 +53,8 @@ setNCAAFB () {
         .then(data=>this.setState ({
             games: [],
     }, () => this.setState({
-            games: data.data
+            games: data.data,
+            sport: 'NCAAFB'
     })))
         .catch(err=>console.error(err))
 }
@@ -59,7 +64,8 @@ setUCL () {
         .then(data=>this.setState ({
             games: [],
     }, () => this.setState({
-            games: data.data
+            games: data.data,
+            sport: 'UCL'
     })))
         .catch(err=>console.error(err))
 }
@@ -69,7 +75,8 @@ setEPL () {
         .then(data=>this.setState ({
             games: [],
     }, () => this.setState({
-            games: data.data
+            games: data.data,
+            sport: 'EPL'
     })))
         .catch(err=>console.error(err))
 }
@@ -83,8 +90,9 @@ fetchOdds () {
         .catch(err=>console.error(err))
 }
 
-onGameClick (game, odds) {
+onGameClick (gameID, game, odds) {
     this.setState ({
+        currentGameID: gameID,
         currentGame: game,
         currentOdds: odds
     })
@@ -102,8 +110,8 @@ render () {
                 <button className = 'league-button' onClick = {() => this.setUCL()} value = 'UCL'>UCL</button>
                 <button className = 'league-button' onClick = {() => this.setEPL()} value = 'EPL'>EPL</button>
             </div>
-            <Bet currentGame = {this.state.currentGame} currentOdds = {this.state.currentOdds} />
-            <Games games={this.state.games} onGameClick={this.onGameClick} /> 
+            <Bet currentGameID = {this.state.currentGameID} currentGame = {this.state.currentGame} currentOdds = {this.state.currentOdds} />
+            <Games games={this.state.games} sport = {this.state.sport} onGameClick={this.onGameClick} /> 
         </div>
     )
 
