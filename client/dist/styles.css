@@ -174,8 +174,8 @@ body {
 }
 
 .tie {
-    text-align: center;
-    float: center;
+    position: relative;
+    left: 10%;
     font-size: 25px;
     padding: 10px;
     border-bottom: 1px solid black;
@@ -297,7 +297,7 @@ body {
     position: relative;
     width: 290px;
     margin-top: 25px;
-    background-color: #b2bab9;
+    background-color: #4682b4;
     color: #fff;
     left: 3%;
     border-style: solid;
@@ -341,6 +341,7 @@ body {
 
 .team1 {
     text-align: center;
+    display: inline;
     float: center;
     font-size: 30px;
     padding: 10px;
@@ -348,6 +349,8 @@ body {
 
 .team2 {
     text-align: center;
+    display: inline;
+
     float: center;
     font-size: 30px;
     padding: 10px;
@@ -355,13 +358,15 @@ body {
 
 .odds1 {
     position: relative;
-    left: 40%;
+    display: inline;
+    right: 0%;
     font-size: 30px;
 }
 
 .odds2 {
     position: relative;
-    left: 40%;
+    display: inline;
+    right: 0%;
     font-size: 30px;
 }
 
@@ -369,13 +374,18 @@ body {
     text-align: center;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
+    
 }
 
 .teamodds1 {
+    text-align: center;
     position: relative;
+    width: 100%;
 }
 
 .teamodds2 {
+    text-align: center;
     position: relative;
+    width: 100%;
 }
 

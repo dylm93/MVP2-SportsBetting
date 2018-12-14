@@ -17,6 +17,8 @@ class Bet extends React.Component {
     this.fetchBalance = this.fetchBalance.bind(this);
     this.fetchOpenBets = this.fetchOpenBets.bind(this);
     this.fetchWinners = this.fetchWinners.bind(this);
+    
+    axios.defaults.baseURL = 'ec2-35-174-4-106.compute-1.amazonaws.com'
     }
 
 componentDidMount () {

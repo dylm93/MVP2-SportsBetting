@@ -13,7 +13,7 @@ class Winners extends React.Component {
 
     postWinners () {
         axios.post('/winners', {
-            winners: 'NFL1: Carolina Panthers,NBA8: Los Angeles Lakers'
+            winners: 'NBA1: Los Angeles Lakers,NBA2: Los Angeles Clippers'
         })
     }
 
