@@ -8,7 +8,6 @@ class NavBar extends React.Component {
     this.state = {
         username: ''
     }
-    axios.defaults.baseURL = 'ec2-35-174-4-106.compute-1.amazonaws.com'
     }
 
 componentDidMount () {
