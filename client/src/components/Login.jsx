@@ -14,7 +14,7 @@ class Login extends React.Component {
         passwordlogin: '',
         loggedIn: false
     }
-    axios.defaults.baseURL = 'http://ec2-35-174-4-106.compute-1.amazonaws.com'
+    // axios.defaults.baseURL = 'http://ec2-35-174-4-106.compute-1.amazonaws.com'
     }
     
 usernameSubmit (e) {

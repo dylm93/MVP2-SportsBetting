@@ -175,7 +175,7 @@ body {
 
 .tie {
     position: relative;
-    left: 10%;
+    text-align: center;
     font-size: 25px;
     padding: 10px;
     border-bottom: 1px solid black;
@@ -372,9 +372,6 @@ body {
 
 .versus {
     text-align: center;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    
 }
 
 .teamodds1 {
