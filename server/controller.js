@@ -37,7 +37,7 @@ const controller = {
         
     },
     getOdds: (req, res) => {
-        const apiKey = '3cd18c6687e9c299e11e016996cddf1c'
+        const apiKey = '81215997a392f158ad5ac55cd1e977e9'
       let options = {
         url: `https://api.the-odds-api.com/v3/odds?sport=${req.query.sport}&region=${req.query.region}&mkt=h2h&apiKey=${apiKey}`,
         dataType: 'json',
