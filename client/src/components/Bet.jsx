@@ -82,7 +82,6 @@ fetchWinners () {
                         for (var i = 0; i < data.data.length; i++) {
                         winnings += data.data[i]['amount']
                     }
-                    console.log(winnings)
                     if (winnings > 0) {
                         axios.put('/placedbet', {money: this.state.money + winnings})
                             .then(()=>axios.delete('/bets', {params: {winners: data.data}})

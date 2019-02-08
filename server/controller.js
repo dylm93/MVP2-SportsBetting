@@ -29,8 +29,8 @@ const controller = {
             gameIdArr.push(winner['gameid'])
             teamArr.push(winner['team'])
         }
-        console.log(gameIdArr)
-        console.log(teamArr)
+        // console.log(gameIdArr)
+        // console.log(teamArr)
             db.Users.findOne({where: {username: req.session.username}})
                 .then(data=> db.Bets.destroy({where: {gameid: gameIdArr, team: teamArr, betId: data.dataValues.id}}))
                     .catch(err=>console.error(err))
@@ -58,7 +58,7 @@ const controller = {
                 for (var i = 0; i < body.data.length; i++) {
                     for (var j = 0; j < body['data'][i]['sites'].length; j++) {
                         if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
-                            console.log('game', body['data'][i]['teams'], body['data'][i]['sites'][j]['odds']['h2h'])
+                            // console.log('game', body['data'][i]['teams'], body['data'][i]['sites'][j]['odds']['h2h'])
                         }
                      if (!games[body['data'][i]['teams']]) {
                         if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
@@ -98,7 +98,7 @@ if (req.query.region === 'us') {
             for (var i = 0; i < body.data.length; i++) {
                 for (var j = 0; j < body['data'][i]['sites'].length; j++) {
                     if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {
-                        console.log('game', body['data'][i]['teams'], body['data'][i]['sites'][j])
+                        // console.log('game', body['data'][i]['teams'], body['data'][i]['sites'][j])
                     }
                  if (!games[body['data'][i]['teams']]) {
                     if (body['data'][i]['sites'][j]['site_key'] === 'mybookieag') {

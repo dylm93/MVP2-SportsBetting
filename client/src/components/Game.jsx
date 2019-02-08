@@ -28,7 +28,7 @@ componentDidMount () {
 }
 
 gameSplitter () {
-    console.log ('sport:', this.props.sport)
+    // console.log ('sport:', this.props.sport)
 
     var game = this.props.game.split(`'`)
     
@@ -41,7 +41,7 @@ gameSplitter () {
     var odds1 = game[3].split(',')[0]
     var odds2 = game[3].split(',')[1]
     var gameID = `${this.props.sport}${game[4]}`
-    console.log('gameID:', gameID)
+    // console.log('gameID:', gameID)
 
     if (odds1 > 2) {
         odds1 = '+' + Math.ceil((Math.round(odds1 * 100 - 100))/10)*10
@@ -77,8 +77,6 @@ gameSplitter () {
         odds2 = '+' + 100;
     }
 
-    console.log('odds', odds1, odds2)
-    console.log('game:', game)
     this.setState ({
         team1: team1,
         team2: team2,
@@ -129,7 +127,6 @@ gameSplitter () {
     if (odds2 === 2) {
         odds2 = +100
     }
-    console.log('game:', game)
     this.setState ({
         team1: team1,
         team2: team2,
