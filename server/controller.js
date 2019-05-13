@@ -52,9 +52,9 @@ const controller = {
                 var body = JSON.parse(data)
                 
                 var games = {}
-                var teams = [];
                 var gamesArr = [];
-               
+                var count = 1;
+                
                 for (var i = 0; i < body.data.length; i++) {
                     for (var j = 0; j < body['data'][i]['sites'].length; j++) {
                         if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
@@ -62,24 +62,27 @@ const controller = {
                         }
                      if (!games[body['data'][i]['teams']]) {
                         if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
-                            games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                            games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h'] + `'` + count + `'`
+                            console.log( games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h'])
                         }
                     } else {
                         if (body['data'][i]['sites'][j]['site_key'] === 'skybet') {
-                            games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h']
+                            games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h'] + `'` + count + `'`
+                            console.log( games[body['data'][i]['teams']] = body['data'][i]['sites'][j]['odds']['h2h'])
                         }
                     }
-                
                 }
+                count = count + 1
             }
+            
             for (var key in games) {
                 if (games.hasOwnProperty(key)) {
                     var count = 1;
                     gamesArr.push(`'` + key + `'` + '=' + `'` + games[key] + `'` + count);
-                    count++;
                 }
             }   
             res.send(gamesArr)
+            // console.log(gamesArr)
         }
     })
 }
@@ -177,14 +180,14 @@ if (req.query.region === 'us') {
 
     },
     placeBet: (req, res) => {
-        console.log(req.body)
+        // console.log(req.body)
         db.Users.update({balance: req.body.money}, {where: {username: req.session.username}})
         res.send(201)
     },
     postWinners: (req, res) => {
         db.Winners.create({winners: req.body.winners})
             .then(winners => {
-                console.log(winners)
+                // console.log(winners)
                 res.send(201)
             })
     },
@@ -204,8 +207,8 @@ if (req.query.region === 'us') {
                 gameID.push(eachWinnerSplit[j].split(':')[0])
                 team.push(eachWinnerSplit[j].split(': ')[1])
         }
-        console.log(team)
-        console.log(gameID)
+        // console.log(team)
+        // console.log(gameID)
     }  
            
         db.Users.findOne({where: {username: req.session.username}})
