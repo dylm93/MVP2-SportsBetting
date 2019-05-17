@@ -264,6 +264,11 @@ body {
     bottom: 0px;
 }
 
+.open-bet {
+    display: flex;
+    justify-content: center;
+}
+
 .currentbet {
     border-radius: 1px;
     border-color: white;
@@ -315,10 +320,9 @@ body {
 }
 
 .openbet-gameid {
-    position: relative;
-    display: inline;
+    display: flex;
+    justify-content: left;
     font-size: 10px;
-    left: -10%;
 }
 
 .closebets {
@@ -350,7 +354,6 @@ body {
 .team2 {
     text-align: center;
     display: inline;
-
     float: center;
     font-size: 30px;
     padding: 10px;

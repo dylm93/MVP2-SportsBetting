@@ -118,7 +118,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar BetEntry = function BetEntry(props) {\n    return _react2.default.createElement(\n        'div',\n        null,\n        _react2.default.createElement(\n            'div',\n            { className: 'openbet-gameid' },\n            props.bet.gameid\n        ),\n        props.bet.team,\n        ' : $',\n        props.bet.amount\n    );\n};\n\nexports.default = BetEntry;\n\n//# sourceURL=webpack:///./client/src/components/BetEntry.jsx?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar BetEntry = function BetEntry(props) {\n    return _react2.default.createElement(\n        'div',\n        { className: 'open-bet' },\n        _react2.default.createElement(\n            'div',\n            { className: 'openbet-gameid' },\n            props.bet.gameid\n        ),\n        props.bet.team,\n        ' : $',\n        props.bet.amount\n    );\n};\n\nexports.default = BetEntry;\n\n//# sourceURL=webpack:///./client/src/components/BetEntry.jsx?");
 
 /***/ }),
 
