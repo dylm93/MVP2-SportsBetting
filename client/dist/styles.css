@@ -283,10 +283,13 @@ body {
 
 .currentgame {
     padding: 2px;
+    font-size: 16px;
+    display: inline;
 }
 
 .currentodds {
     margin-left: 10px;
+    font-size: 16px;
 }
 
 .currentgameID {

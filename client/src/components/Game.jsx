@@ -187,13 +187,13 @@ render () {
                 <div onClick = {() => this.props.onGameClick(this.state.gameID, this.state.team1, this.state.odds1)} className = 'team1'>{this.state.team1}</div>
                 <div className = 'odds1'>{this.state.odds1}</div>
             </div>
-            {this.state.soccer? <div onClick = {() => this.props.onGameClick(`${this.state.team1} Tie ${this.state.team2}`, this.state.soccerOrOtherSport)} className = 'tie'> 
+            {this.state.soccer? <div onClick = {() => this.props.onGameClick(this.state.gameID, `Draw`, this.state.soccerOrOtherSport)} className = 'tie'> 
                 Draw {this.state.soccerOrOtherSport}
             </div> : <div className = 'versus'>{this.state.soccerOrOtherSport}</div>}
             <div className = 'teamodds2' onMouseOver = {this.game2Hover} onMouseLeave={this.game2Leave}>
                 <div onClick = {() => this.props.onGameClick(this.state.gameID, this.state.team2, this.state.odds2)} className = 'team2'>{this.state.team2}</div>
                 <div className = 'odds2'>{this.state.odds2}</div>
-            </div>
+            </div>   
         </div>
         </div>
     </div>
@@ -203,3 +203,5 @@ render () {
 }
 
 export default Game;
+
+// onGameClick (gameID, game, odds)
